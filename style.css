@@ -71,3 +71,14 @@ nav a {
 nav a:hover {
     color: #60a5fa;
 }
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+form {
+    margin-top: 10px;
+}
