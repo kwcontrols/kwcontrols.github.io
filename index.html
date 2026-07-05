@@ -33,7 +33,7 @@
 
     <button>Request a Quote</button>
 
-    <h2>Services</h2>
+    <h2 id="services">Services</h2>
     <ul>
         <li>PLC Programming (ControlLogix / CompactLogix)</li>
         <li>Studio 5000 Development</li>
@@ -44,7 +44,7 @@
         <li>Remote Support</li>
     </ul>
 
-    <h2>Industries</h2>
+    <h2 id="industries">Industries</h2>
     <ul>
         <li>Food & Beverage</li>
         <li>Packaging</li>
@@ -53,9 +53,22 @@
         <li>Material Handling</li>
     </ul>
 
-    <h2>Contact</h2>
-    <p>Email: info@kwcontrols.com</p>
-    <p>Serving Canada & USA</p>
+    <h2 id="contact">Contact</h2>
+    
+    <form action="https://formsubmit.co/info@kwcontrols.com" method="POST">
+    
+        <input type="text" name="name" placeholder="Your Name" required>
+        <br><br>
+    
+        <input type="email" name="email" placeholder="Your Email" required>
+        <br><br>
+    
+        <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+        <br><br>
+    
+        <button type="submit">Send Message</button>
+    
+    </form>
 
 </div>
 
