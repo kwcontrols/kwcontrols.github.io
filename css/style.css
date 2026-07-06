@@ -1,87 +1,137 @@
 html {
-    scroll-behavior: smooth;
+  scroll-behavior: smooth;
 }
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    background: #f4f6f8;
-    color: #1f2937;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #f4f6f8;
+  color: #1f2937;
 }
 
 header {
-    background: #0f172a;
-    color: white;
-    padding: 60px 20px;
-    text-align: center;
+  background: #0f172a;
+  color: white;
+  padding: 60px 20px;
+  text-align: center;
 }
 
 header h1 {
-    margin: 0;
-    font-size: 42px;
+  margin: 0;
+  font-size: 42px;
 }
 
 header p {
-    font-size: 18px;
-    margin-top: 10px;
-    color: #cbd5e1;
+  font-size: 18px;
+  margin-top: 10px;
+  color: #cbd5e1;
 }
 
 .container {
-    max-width: 900px;
-    margin: 40px auto;
-    padding: 20px;
-    background: white;
-    border-radius: 10px;
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
 }
 
 h2 {
-    color: #0f172a;
+  color: #0f172a;
 }
 
 ul {
-    line-height: 1.8;
+  line-height: 1.8;
 }
 
 button {
-    background: #2563eb;
-    color: white;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 6px;
-    cursor: pointer;
-    margin-top: 10px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
 }
 
 button:hover {
-    background: #1d4ed8;
+  background: #1d4ed8;
 }
 nav {
-    background: #111827;
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    padding: 15px 20px;
-    position: sticky;
-    top: 0;
+  background: #111827;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 20px;
+  position: sticky;
+  top: 0;
 }
 
 nav a {
-    color: white;
-    text-decoration: none;
-    margin-left: 15px;
+  color: white;
+  text-decoration: none;
+  margin-left: 15px;
 }
 
 nav a:hover {
-    color: #60a5fa;
+  color: #60a5fa;
 }
-input, textarea {
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
+input,
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
 }
 
 form {
-    margin-top: 10px;
+  margin-top: 10px;
+}
+
+.hero {
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  color: white;
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.hero h1 {
+  font-size: 50px;
+  margin-bottom: 10px;
+}
+
+.hero p {
+  font-size: 18px;
+  color: #cbd5e1;
+}
+
+.buttons {
+  margin-top: 20px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 12px 20px;
+  background: #2563eb;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  margin: 5px;
+}
+
+.btn.secondary {
+  background: transparent;
+  border: 1px solid white;
+}
+
+.btn:hover {
+  background: #1d4ed8;
+}
+
+section {
+  margin-bottom: 50px;
+}
+
+section h2 {
+  border-left: 4px solid #2563eb;
+  padding-left: 10px;
 }

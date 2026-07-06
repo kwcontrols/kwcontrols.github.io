@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -16,61 +16,71 @@
         <a href="#contact">Contact</a>
       </div>
     </nav>
-    <header>
+
+    <header class="hero">
       <h1>KW CONTROLS</h1>
-      <p>Industrial Automation & PLC Programming Specialists</p>
-      <p>Allen-Bradley • Studio 5000 • FactoryTalk • ControlLogix</p>
+      <p>Industrial Automation & Allen-Bradley PLC Programming</p>
+      <p>ControlLogix • CompactLogix • FactoryTalk • Studio 5000</p>
+
+      <div class="buttons">
+        <a href="#contact" class="btn">Request a Quote</a>
+        <a href="#services" class="btn secondary">View Services</a>
+      </div>
     </header>
 
     <div class="container">
-      <h2>About</h2>
-      <p>
-        We provide industrial automation and PLC programming services across
-        Canada and the United States with over 10+ years of Allen-Bradley
-        experience.
-      </p>
+      <section id="about">
+        <h2>About KW CONTROLS</h2>
+        <p>
+          With 10+ years of experience in Allen-Bradley systems, KW CONTROLS
+          provides industrial automation solutions across Canada and the United
+          States. We specialize in PLC programming, troubleshooting,
+          commissioning, and system upgrades.
+        </p>
+      </section>
 
-      <button>Request a Quote</button>
+      <section id="services">
+        <h2>Services</h2>
+        <ul>
+          <li>PLC Programming (ControlLogix / CompactLogix)</li>
+          <li>Studio 5000 Development</li>
+          <li>FactoryTalk View HMI Development</li>
+          <li>Machine Commissioning</li>
+          <li>PLC Troubleshooting</li>
+          <li>Automation Retrofits</li>
+          <li>Remote Support</li>
+        </ul>
+      </section>
 
-      <h2 id="services">Services</h2>
-      <ul>
-        <li>PLC Programming (ControlLogix / CompactLogix)</li>
-        <li>Studio 5000 Development</li>
-        <li>FactoryTalk View HMI Development</li>
-        <li>Machine Commissioning</li>
-        <li>PLC Troubleshooting</li>
-        <li>Automation Retrofits</li>
-        <li>Remote Support</li>
-      </ul>
+      <section id="industries">
+        <h2>Industries Served</h2>
+        <ul>
+          <li>Food & Beverage</li>
+          <li>Packaging</li>
+          <li>Automotive</li>
+          <li>Water & Wastewater</li>
+          <li>Material Handling</li>
+        </ul>
+      </section>
 
-      <h2 id="industries">Industries</h2>
-      <ul>
-        <li>Food & Beverage</li>
-        <li>Packaging</li>
-        <li>Automotive</li>
-        <li>Water & Wastewater</li>
-        <li>Material Handling</li>
-      </ul>
+      <section id="contact">
+        <h2>Contact</h2>
 
-      <h2 id="contact">Contact</h2>
-
-      <form action="https://formsubmit.co/teck3618@gmail.com" method="POST">
-        <input type="text" name="name" placeholder="Your Name" required />
-        <br /><br />
-
-        <input type="email" name="email" placeholder="Your Email" required />
-        <br /><br />
-
-        <textarea
-          name="message"
-          placeholder="Your Message"
-          rows="5"
-          required
-        ></textarea>
-        <br /><br />
-
-        <button type="submit">Send Message</button>
-      </form>
+        <form
+          action="https://formsubmit.co/your-email@example.com"
+          method="POST"
+        >
+          <input type="text" name="name" placeholder="Your Name" required />
+          <input type="email" name="email" placeholder="Your Email" required />
+          <textarea
+            name="message"
+            placeholder="Your Message"
+            rows="5"
+            required
+          ></textarea>
+          <button type="submit">Send Message</button>
+        </form>
+      </section>
     </div>
   </body>
 </html>
