@@ -113,20 +113,15 @@ form {
   padding: 12px 20px;
   background: #2563eb;
   color: white;
-  text-decoration: none;
+  text-decoration: none; /* ⭐ THIS removes underline */
   border-radius: 6px;
   margin: 5px;
-}
-
-.btn.secondary {
-  background: transparent;
-  border: 1px solid white;
+  font-weight: 500;
 }
 
 .btn:hover {
   background: #1d4ed8;
 }
-
 section {
   margin-bottom: 50px;
 }
