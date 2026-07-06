@@ -13,6 +13,10 @@ body {
   background: #f5f7fa;
   color: #1f2937;
   line-height: 1.6;
+
+  /* Better cross-browser font rendering */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 nav {
@@ -87,12 +91,12 @@ nav {
   transform: translateY(-3px);
 }
 
-.secondary {
+.btn.secondary {
   background: white;
   color: #2563eb;
 }
 
-.secondary:hover {
+.btn.secondary:hover {
   background: #e5e7eb;
 }
 
