@@ -27,14 +27,27 @@
 
       <p>Send a message and we'll get back to you as soon as possible.</p>
 
-      <form action="https://formsubmit.co/teck3618@gmail.com" method="POST">
-        <input type="text" name="name" placeholder="Your Name" required />
+      <form
+        class="contact-form"
+        action="https://formsubmit.co/teck3618@gmail.com"
+        method="POST"
+      >
+        <div class="form-row">
+          <input type="text" name="name" placeholder="Name" required />
+          <input type="email" name="email" placeholder="Email" required />
+        </div>
 
-        <input type="email" name="email" placeholder="Email" required />
+        <input
+          class="subject"
+          type="text"
+          name="subject"
+          placeholder="Subject"
+          required
+        />
 
         <textarea
+          class="message"
           name="message"
-          rows="6"
           placeholder="Tell us about your project..."
           required
         ></textarea>
