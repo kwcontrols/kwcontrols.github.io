@@ -1,3 +1,20 @@
+:root {
+  /* Brand Colors */
+  --primary-blue: #0c2742;
+  --primary-blue-light: #1d4e89;
+  --accent-blue: #2563eb;
+
+  /* Backgrounds */
+  --bg-light: #f5f7fa;
+  --bg-dark: #0b1f33;
+
+  /* Text */
+  --text-dark: #1f2937;
+  --text-light: #d1d5db;
+
+  /* Effects */
+  --shadow: rgba(0, 0, 0, 0.15);
+}
 * {
   margin: 0;
   padding: 0;
@@ -20,7 +37,7 @@ body {
 }
 
 nav {
-  background: #111827;
+  background: var(--primary-blue);
   color: white;
   display: flex;
   justify-content: space-between;
@@ -80,7 +97,7 @@ nav {
 }
 
 .trust {
-  background: #111827;
+  background: var(--primary-blue);
   color: white;
   display: flex;
   justify-content: center;
@@ -133,7 +150,7 @@ section {
 section h2 {
   margin-bottom: 30px;
   font-size: 34px;
-  color: #111827;
+  color: var(--primary-blue);
 }
 
 .card-grid {
@@ -167,10 +184,80 @@ section h2 {
   color: #2563eb;
 }
 
-footer {
-  background: #111827;
+/* .cta {
+  background: #0f172a;
+  color: white;
+  text-align: center;
+  padding: 80px 20px;
+  margin-top: 60px;
+}
+
+.cta h2 {
+  color: white;
+  margin-bottom: 20px;
+}
+
+.cta p {
+  max-width: 700px;
+  margin: 0 auto 30px;
+  font-size: 18px;
+} */
+
+/* footer {
+  background: var(--primary-blue);
   color: white;
   text-align: center;
   padding: 40px;
   margin-top: 60px;
+} */
+footer {
+  background: var(--primary-blue);
+  color: #d1d5db;
+  padding: 18px 30px 10px;
+}
+
+.footer-bar {
+  max-width: 1200px;
+  margin: auto;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.footer-logo {
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.footer-contact a,
+.footer-links a {
+  color: #9ca3af;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-contact a:hover,
+.footer-links a:hover {
+  color: #60a5fa;
+}
+
+.footer-links {
+  text-align: right;
+}
+
+footer hr {
+  border: none;
+  border-top: 1px solid #374151;
+  margin: 15px auto 10px;
+  max-width: 1200px;
+}
+
+.copyright {
+  text-align: center;
+  color: #9ca3af;
+  font-size: 14px;
 }
