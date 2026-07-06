@@ -53,6 +53,7 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
 
   padding: 15px 20px;
 
@@ -343,4 +344,97 @@ footer {
   padding: 10px 20px;
   margin-top: 10px;
   letter-spacing: 0.3px;
+}
+
+.menu-toggle {
+  display: none;
+  font-size: 30px;
+  cursor: pointer;
+  color: var(--text-dark);
+  user-select: none;
+}
+
+@media (max-width: 768px) {
+  /* Navigation */
+  /* Navigation */
+  nav {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+  }
+
+  /* Keep logo on the left */
+  .logo {
+    width: auto;
+    margin-bottom: 0;
+  }
+
+  /* Show hamburger */
+  .menu-toggle {
+    display: block;
+  }
+
+  /* Hide menu by default */
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 15px;
+    gap: 0;
+  }
+
+  /* Show menu after clicking ☰ */
+  .nav-links.active {
+    display: flex;
+  }
+
+  /* Menu items */
+  .nav-links li {
+    margin: 12px 0;
+    text-align: center;
+  }
+
+  /* Hero */
+  .hero {
+    padding: 80px 20px;
+  }
+
+  .hero h1 {
+    font-size: 36px;
+    line-height: 1.2;
+  }
+
+  .hero p {
+    font-size: 18px;
+  }
+
+  /* Hero buttons */
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+  }
+
+  .btn {
+    width: 100%;
+    max-width: 320px;
+    text-align: center;
+  }
+
+  /* Contact form */
+  .form-row {
+    flex-direction: column;
+  }
+
+  /* Footer */
+  .footer-bar {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer-contact {
+    text-align: center;
+  }
 }
