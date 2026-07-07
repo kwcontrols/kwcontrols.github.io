@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kwcontrols.github.io/sitemap.xml
