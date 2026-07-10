@@ -325,13 +325,15 @@ footer {
 
 /* email styling */
 .footer-contact a {
-  color: var(--text-dark);
+  color: var(--accent-blue);
   text-decoration: none;
-  margin-left: 5px;
+  font-weight: 600;
+  transition: color 0.2s ease;
 }
 
 .footer-contact a:hover {
   color: var(--primary-blue);
+  text-decoration: underline;
 }
 
 /* dark copyright bar */
