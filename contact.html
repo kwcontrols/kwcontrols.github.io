@@ -3,12 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Contact | KW CONTROLS</title>
+    <title>Contact | KW Controls</title>
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
     <nav>
-      <div class="logo">KW CONTROLS</div>
+      <div class="logo">KW Controls</div>
 
       <div class="menu-toggle" id="mobile-menu">☰</div>
 
@@ -20,47 +20,82 @@
         <li><a href="contact.html">Contact</a></li>
       </ul>
     </nav>
+    <main>
+      <!-- Contact banner -->
+      <section class="contact-banner">
+        <div class="contact-banner-inner">
+          <h1>Contact</h1>
+        </div>
+      </section>
 
-    <section>
-      <h1>Contact</h1>
+      <!-- Contact content -->
+      <section class="contact-content">
+        <div class="contact-container">
+          <h2>Let’s Discuss Your Project</h2>
 
-      <p>
-        Looking for PLC programming, troubleshooting, or commissioning support?
-      </p>
+          <p>
+            Looking for PLC programming, troubleshooting, commissioning, or
+            automation upgrade support?
+          </p>
 
-      <p>Send a message and we'll get back to you as soon as possible.</p>
+          <p>
+            Send us a message or email us and we’ll get back to you as soon as
+            possible.
+          </p>
 
-      <form
-        class="contact-form"
-        action="https://formsubmit.co/teck3618@gmail.com"
-        method="POST"
-      >
-        <input type="hidden" name="_captcha" value="false" />
-        <input type="hidden" name="_template" value="table" />
+          <form
+            class="contact-form"
+            action="https://formsubmit.co/teck3618@gmail.com"
+            method="POST"
+          >
+            <input type="hidden" name="_captcha" value="false" />
+            <input type="hidden" name="_template" value="table" />
 
-        <div class="form-row">
-          <input type="text" name="name" placeholder="Name" required />
-          <input type="email" name="email" placeholder="Email" required />
+            <div class="form-row">
+              <input type="text" name="name" placeholder="Name" required />
+              <input type="email" name="email" placeholder="Email" required />
+            </div>
+
+            <input
+              class="subject"
+              type="text"
+              name="subject"
+              placeholder="Subject"
+              required
+            />
+
+            <textarea
+              class="message"
+              name="message"
+              placeholder="Tell us about your project..."
+              required
+            ></textarea>
+
+            <button type="submit">Send Message</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-bar">
+        <div class="footer-logo">
+          <strong>KW Controls</strong>
         </div>
 
-        <input
-          class="subject"
-          type="text"
-          name="subject"
-          placeholder="Subject"
-          required
-        />
+        <div class="footer-contact">
+          Contact:
+          <a
+            class="email-button"
+            href="mailto:KW%20Controls%20<teck3618@gmail.com>?subject=Automation%20Project%20Inquiry&body=Hello%20KW%20Controls,%0A%0AI%20would%20like%20to%20discuss%20an%20automation%20project."
+          >
+            Email Us
+          </a>
+        </div>
+      </div>
 
-        <textarea
-          class="message"
-          name="message"
-          placeholder="Tell us about your project..."
-          required
-        ></textarea>
-
-        <button type="submit">Send Message</button>
-      </form>
-    </section>
+      <div class="copyright-bar">© 2026 KW Controls. All Rights Reserved.</div>
+    </footer>
 
     <!-- JavaScript -->
     <script src="js/script.js"></script>
