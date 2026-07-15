@@ -31,48 +31,73 @@
       <!-- Contact content -->
       <section class="contact-content">
         <div class="contact-container">
-          <h2>Let’s Discuss Your Project</h2>
+          <div class="contact-layout">
+            <!-- Left side: Contact form -->
+            <div class="contact-form-column">
+              <h2>Let’s Discuss Your Project</h2>
 
-          <p>
-            Looking for PLC programming, troubleshooting, commissioning, or
-            automation upgrade support?
-          </p>
+              <p>
+                Looking for PLC programming, troubleshooting, commissioning, or
+                automation upgrade support?
+              </p>
 
-          <p>
-            Send us a message or email us and we’ll get back to you as soon as
-            possible.
-          </p>
+              <p>
+                Send us a message or email us and we’ll get back to you as soon
+                as possible.
+              </p>
 
-          <form
-            class="contact-form"
-            action="https://formsubmit.co/teck3618@gmail.com"
-            method="POST"
-          >
-            <input type="hidden" name="_captcha" value="false" />
-            <input type="hidden" name="_template" value="table" />
+              <form
+                class="contact-form"
+                action="https://formsubmit.co/teck3618@gmail.com"
+                method="POST"
+              >
+                <input type="hidden" name="_captcha" value="false" />
+                <input type="hidden" name="_template" value="table" />
 
-            <div class="form-row">
-              <input type="text" name="name" placeholder="Name" required />
-              <input type="email" name="email" placeholder="Email" required />
+                <input type="text" name="name" placeholder="Name" required />
+
+                <input type="email" name="email" placeholder="Email" required />
+
+                <input
+                  class="subject"
+                  type="text"
+                  name="subject"
+                  placeholder="Subject"
+                  required
+                />
+
+                <textarea
+                  class="message"
+                  name="message"
+                  placeholder="Tell us about your project..."
+                  required
+                ></textarea>
+
+                <button type="submit">Send Message</button>
+              </form>
             </div>
 
-            <input
-              class="subject"
-              type="text"
-              name="subject"
-              placeholder="Subject"
-              required
-            />
+            <!-- Right side: Google Map -->
+            <div class="contact-map-column">
+              <h2>Service Location</h2>
 
-            <textarea
-              class="message"
-              name="message"
-              placeholder="Tell us about your project..."
-              required
-            ></textarea>
+              <p>
+                Based in Vancouver, serving industrial automation customers
+                throughout Canada and the United States.
+              </p>
 
-            <button type="submit">Send Message</button>
-          </form>
+              <div class="map-container">
+                <iframe
+                  src="https://www.google.com/maps?q=Vancouver,+British+Columbia,+Canada&output=embed"
+                  title="KW Controls Service Area"
+                  loading="lazy"
+                  allowfullscreen
+                  referrerpolicy="no-referrer-when-downgrade"
+                >
+                </iframe>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </main>
