@@ -59,9 +59,40 @@ nav {
   border-bottom: 1px solid #e5e7eb;
 }
 
-.logo {
+/* .logo {
   font-size: 24px;
   font-weight: bold;
+} */
+
+.header-logo-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.header-icon {
+  display: block;
+  width: auto;
+  height: 62px;
+  position: relative;
+  top: -2px;
+}
+
+.header-divider {
+  width: 1.5px;
+  height: 44px;
+  background: #082b70;
+  border-radius: 2px;
+}
+
+.header-text {
+  color: #082b70;
+  font-size: 31px;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
 }
 
 .nav-links {
@@ -265,6 +296,25 @@ footer {
 .footer-contact a:hover {
   color: var(--primary-blue);
   text-decoration: underline;
+}
+
+.footer-logo-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.footer-icon {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+.footer-text {
+  color: inherit;
+  font-weight: 700;
 }
 
 /* Full-width dark-blue copyright bar */
@@ -610,7 +660,6 @@ footer {
 
 @media (max-width: 768px) {
   /* Navigation */
-  /* Navigation */
   nav {
     flex-wrap: wrap;
     justify-content: space-between;
@@ -618,11 +667,20 @@ footer {
     padding: 15px 20px;
   }
 
-  /* Keep logo on the left */
-  .logo {
-    width: auto;
-    margin-bottom: 0;
-    font-size: 24px;
+  .header-icon {
+    height: 44px;
+  }
+
+  .header-divider {
+    height: 34px;
+  }
+
+  .header-text {
+    font-size: 22px;
+  }
+
+  .header-logo-link {
+    gap: 9px;
   }
 
   /* Show hamburger */
@@ -677,21 +735,34 @@ footer {
     max-width: 320px;
     text-align: center;
   }
-
   /* Contact form */
   .form-row {
     flex-direction: column;
   }
-
   /* Footer */
   .footer-bar {
     flex-direction: column;
     text-align: center;
+    gap: 12px;
+  }
+
+  .footer-logo-link {
+    justify-content: center;
+  }
+
+  .footer-icon {
+    width: 26px;
+    height: 26px;
+  }
+
+  .footer-text {
+    font-size: 16px;
   }
 
   .footer-contact {
     text-align: center;
   }
+
   .about-banner {
     padding: 24px 20px;
   }
