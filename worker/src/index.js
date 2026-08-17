@@ -33,11 +33,11 @@ function listPanel(title, items, renderItem) {
   return `<section class="panel"><h2>${title}</h2>${items.length ? items.map(renderItem).join("") : '<div class="empty">No data available yet.</div>'}</section>`;
 }
 
-function renderAnalytics(email, data, errorMessage = "") {
+function renderAnalytics(email, data, propertyId, errorMessage = "") {
   const rtTotal = data?.realtime?.reduce((sum, row) => sum + row.activeUsers, 0) || 0;
   const s = data?.summary || { activeUsers: 0, sessions: 0, views: 0, averageSessionDuration: 0 };
   return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow,noarchive"><title>Analytics · KW Controls Private Portal</title><style>${shellStyles}</style></head><body>${header()}<main>
-    <a class="back" href="/">← Back to portal</a><div class="eyebrow">Google Analytics 4</div><h1>Website Analytics</h1><p class="lead">Private GA4 reporting for property ${escapeHtml("549031116")}. Realtime uses GA4's rolling realtime window; processed metrics cover the last 30 days.</p>
+    <a class="back" href="/">← Back to portal</a><div class="eyebrow">Google Analytics 4</div><h1>Website Analytics</h1><p class="lead">Private GA4 reporting for property ${escapeHtml(propertyId || "Not configured")}. Realtime uses GA4's rolling realtime window; processed metrics cover the last 30 days.</p>
     ${errorMessage ? `<div class="error"><strong>Analytics connection needs attention.</strong><br>${escapeHtml(errorMessage)}</div>` : ""}
     <section class="stats"><div class="stat"><div class="stat-label">Realtime active</div><div class="stat-value">${rtTotal}</div></div><div class="stat"><div class="stat-label">Active users · 30d</div><div class="stat-value">${s.activeUsers}</div></div><div class="stat"><div class="stat-label">Sessions · 30d</div><div class="stat-value">${s.sessions}</div></div><div class="stat"><div class="stat-label">Page views · 30d</div><div class="stat-value">${s.views}</div></div></section>
     <section class="stats"><div class="stat"><div class="stat-label">Avg. session · 30d</div><div class="stat-value">${formatDuration(s.averageSessionDuration)}</div></div><div class="stat"><div class="stat-label">Signed in as</div><div class="row-title" style="margin-top:8px">${escapeHtml(email)}</div></div><div class="stat"><div class="stat-label">Generated</div><div class="row-title" style="margin-top:8px">${data?.generatedAt ? escapeHtml(new Date(data.generatedAt).toLocaleString("en-CA", { timeZone: "America/Vancouver" })) + " PT" : "—"}</div></div><div class="stat"><div class="stat-label">Source</div><div class="row-title" style="margin-top:8px">GA4 Data API</div></div></section>
@@ -74,9 +74,9 @@ export default {
     if (url.pathname === "/analytics") {
       try {
         const data = await getAnalyticsSnapshot(env);
-        return new Response(renderAnalytics(email, data), { headers: { ...securityHeaders, "Content-Type": "text/html; charset=UTF-8" } });
+        return new Response(renderAnalytics(email, data, env.GA4_PROPERTY_ID), { headers: { ...securityHeaders, "Content-Type": "text/html; charset=UTF-8" } });
       } catch (error) {
-        return new Response(renderAnalytics(email, null, error.message), { status: 200, headers: { ...securityHeaders, "Content-Type": "text/html; charset=UTF-8" } });
+        return new Response(renderAnalytics(email, null, env.GA4_PROPERTY_ID, error.message), { status: 200, headers: { ...securityHeaders, "Content-Type": "text/html; charset=UTF-8" } });
       }
     }
 
