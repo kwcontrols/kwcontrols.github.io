@@ -1,6 +1,7 @@
 name = "kw-controls-portal"
 main = "src/index.js"
 compatibility_date = "2026-08-16"
+keep_vars = true
 
 [observability]
 enabled = true
