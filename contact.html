@@ -4,6 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BH5VWGY72M"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-BH5VWGY72M');
+    </script>
+
     <!-- Favicon -->
     <link rel="icon" href="favicon.ico" sizes="any" />
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
@@ -19,131 +28,64 @@
     <nav>
       <a href="index.html" class="header-logo-link">
         <img src="images/pegasus-outline.svg" alt="" class="header-icon" />
-
         <span class="header-divider" aria-hidden="true"></span>
-
         <span class="header-text">KW Controls</span>
       </a>
-
       <div class="menu-toggle" id="mobile-menu">☰</div>
-
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
         <li><a href="index.html#services">Services</a></li>
-        <!-- <li><a href="projects.html">Projects</a></li> -->
         <li><a href="about.html">About</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
     </nav>
     <main>
-      <!-- Contact banner -->
       <section class="contact-banner">
-        <div class="contact-banner-inner">
-          <h1>Contact</h1>
-        </div>
+        <div class="contact-banner-inner"><h1>Contact</h1></div>
       </section>
-
-      <!-- Contact content -->
       <section class="contact-content">
         <div class="contact-container">
           <div class="contact-layout">
-            <!-- Left side: Contact form -->
             <div class="contact-form-column">
               <h2>Let’s Discuss Your Project</h2>
-
-              <p>
-                Looking for PLC programming, troubleshooting, commissioning, or
-                automation upgrade support?
-              </p>
-
-              <p>
-                Send us a message or email us and we’ll get back to you as soon
-                as possible.
-              </p>
-
-              <form
-                class="contact-form"
-                action="https://formsubmit.co/teck3618@gmail.com"
-                method="POST"
-              >
+              <p>Looking for PLC programming, troubleshooting, commissioning, or automation upgrade support?</p>
+              <p>Send us a message or email us and we’ll get back to you as soon as possible.</p>
+              <form class="contact-form" action="https://formsubmit.co/teck3618@gmail.com" method="POST">
                 <input type="hidden" name="_captcha" value="false" />
                 <input type="hidden" name="_template" value="table" />
-
                 <input type="text" name="name" placeholder="Name" required />
-
                 <input type="email" name="email" placeholder="Email" required />
-
-                <input
-                  class="subject"
-                  type="text"
-                  name="subject"
-                  placeholder="Subject"
-                  required
-                />
-
-                <textarea
-                  class="message"
-                  name="message"
-                  placeholder="Tell us about your project..."
-                  required
-                ></textarea>
-
+                <input class="subject" type="text" name="subject" placeholder="Subject" required />
+                <textarea class="message" name="message" placeholder="Tell us about your project..." required></textarea>
                 <button type="submit">Send Message</button>
               </form>
             </div>
-
-            <!-- Right side: Google Map -->
             <div class="contact-map-column">
               <h2>Service Location</h2>
-
-              <p>
-                Based in Vancouver, serving industrial automation customers
-                throughout Canada and the United States.
-              </p>
-
+              <p>Based in Vancouver, serving industrial automation customers throughout Canada and the United States.</p>
               <div class="map-container">
-                <iframe
-                  src="https://www.google.com/maps?q=Vancouver,+British+Columbia,+Canada&output=embed"
-                  title="KW Controls Service Area"
-                  loading="lazy"
-                  allowfullscreen
-                  referrerpolicy="no-referrer-when-downgrade"
-                >
-                </iframe>
+                <iframe src="https://www.google.com/maps?q=Vancouver,+British+Columbia,+Canada&output=embed" title="KW Controls Service Area" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
               </div>
             </div>
           </div>
         </div>
       </section>
     </main>
-
     <footer>
       <div class="footer-bar">
         <div class="footer-logo">
           <a href="index.html" class="footer-logo-link">
             <img src="images/pegasus-outline.svg" alt="" class="footer-icon" />
-
-            <span class="footer-text">
-              <strong>KW Controls</strong>
-            </span>
+            <span class="footer-text"><strong>KW Controls</strong></span>
           </a>
         </div>
-
         <div class="footer-contact">
           Contact:
-          <a
-            class="email-button"
-            href="mailto:KW%20Controls%20<teck3618@gmail.com>?subject=Automation%20Project%20Inquiry&body=Hello%20KW%20Controls,%0A%0AI%20would%20like%20to%20discuss%20an%20automation%20project."
-          >
-            Email Us
-          </a>
+          <a class="email-button" href="mailto:KW%20Controls%20<teck3618@gmail.com>?subject=Automation%20Project%20Inquiry&body=Hello%20KW%20Controls,%0A%0AI%20would%20like%20to%20discuss%20an%20automation%20project.">Email Us</a>
         </div>
       </div>
-
       <div class="copyright-bar">© 2026 KW Controls. All Rights Reserved.</div>
     </footer>
-
-    <!-- JavaScript -->
     <script src="js/script.js"></script>
   </body>
 </html>
