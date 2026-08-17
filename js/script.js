@@ -12,17 +12,3 @@ if (menu && navLinks) {
     }
   });
 }
-
-// Google Analytics 4 — KW Controls Website
-window.dataLayer = window.dataLayer || [];
-function gtag() {
-  dataLayer.push(arguments);
-}
-
-gtag("js", new Date());
-gtag("config", "G-BH5VWGY72M");
-
-const gaScript = document.createElement("script");
-gaScript.async = true;
-gaScript.src = "https://www.googletagmanager.com/gtag/js?id=G-BH5VWGY72M";
-document.head.appendChild(gaScript);
