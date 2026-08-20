@@ -198,6 +198,26 @@ function randomAccessCode() {
   return `${hex.slice(0, 4)}-${hex.slice(4, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}`;
 }
 
+function parseVancouverLocalDateTime(value) {
+  const match = String(value || "").match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})(?::(\d{2}))?$/);
+  if (!match) return NaN;
+  const [, year, month, day, hour, minute, second = "0"] = match;
+  const target = Date.UTC(+year, +month - 1, +day, +hour, +minute, +second);
+  let candidate = target;
+  const formatter = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "America/Vancouver",
+    year: "numeric", month: "2-digit", day: "2-digit",
+    hour: "2-digit", minute: "2-digit", second: "2-digit",
+    hourCycle: "h23",
+  });
+  for (let pass = 0; pass < 2; pass += 1) {
+    const parts = Object.fromEntries(formatter.formatToParts(new Date(candidate)).filter((part) => part.type !== "literal").map((part) => [part.type, part.value]));
+    const shownAsUtc = Date.UTC(+parts.year, +parts.month - 1, +parts.day, +parts.hour, +parts.minute, +parts.second);
+    candidate += target - shownAsUtc;
+  }
+  return candidate;
+}
+
 export async function listManagedGuests(env) {
   const store = guestStore(env);
   if (!store) return null;
@@ -214,7 +234,7 @@ export async function createManagedGuest(input, env) {
   const store = guestStore(env);
   if (!store) return null;
   const name = String(input?.name || "").trim().slice(0, 80);
-  const expires = Date.parse(String(input?.expiresAt || ""));
+  const expires = parseVancouverLocalDateTime(input?.expiresAt);
   const sessionHours = Math.max(0.25, Math.min(Number(input?.sessionHours) || 8, 168));
   if (!name || !Number.isFinite(expires) || expires <= Date.now()) return null;
   const id = crypto.randomUUID();
