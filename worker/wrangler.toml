@@ -3,5 +3,9 @@ main = "src/index.js"
 compatibility_date = "2026-08-16"
 keep_vars = true
 
+[[kv_namespaces]]
+binding = "KW_CONTROLS_GUESTS"
+id = "5a91ab738391421faae4a6d3eab24690"
+
 [observability]
 enabled = true
