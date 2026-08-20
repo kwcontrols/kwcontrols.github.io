@@ -52,10 +52,41 @@
       }
 
       .contact-content .private-portal-card p {
-        margin-bottom: 20px;
+        margin-bottom: 16px;
         color: #64748b;
         font-size: 14px;
         line-height: 1.6;
+      }
+
+      .private-portal-form {
+        margin: 0;
+      }
+
+      .private-portal-form label {
+        display: block;
+        margin-bottom: 7px;
+        color: var(--primary-blue);
+        font-size: 14px;
+        font-weight: 700;
+      }
+
+      .private-portal-input {
+        display: block;
+        width: 100%;
+        margin-bottom: 14px;
+        padding: 11px 12px;
+        color: var(--text-dark);
+        background: #fff;
+        border: 1px solid #b9c5d3;
+        border-radius: 6px;
+        font-family: inherit;
+        font-size: 15px;
+      }
+
+      .private-portal-input:focus {
+        border-color: var(--accent-blue);
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+        outline: none;
       }
 
       .private-portal-button {
@@ -64,17 +95,32 @@
         padding: 12px 16px;
         color: #fff;
         background: var(--accent-blue);
+        border: 0;
         border-radius: 8px;
         text-align: center;
         text-decoration: none;
+        font-family: inherit;
         font-size: 15px;
         font-weight: 700;
+        cursor: pointer;
         transition: background 0.2s ease, transform 0.2s ease;
       }
 
       .private-portal-button:hover {
         background: var(--primary-blue-light);
         transform: translateY(-1px);
+      }
+
+      .private-portal-error {
+        display: none;
+        margin: -2px 0 12px;
+        color: #b42318;
+        font-size: 13px;
+        line-height: 1.4;
+      }
+
+      .private-portal-error.visible {
+        display: block;
       }
 
       @media (max-width: 1100px) {
@@ -132,11 +178,16 @@
       <section class="contact-content">
         <div class="contact-container">
           <div class="contact-layout">
-            <aside class="private-portal-column" aria-label="Private portal access">
+            <aside class="private-portal-column" id="private-portal" aria-label="Private portal access">
               <div class="private-portal-card">
                 <h2>Private Portal</h2>
                 <p>Secure access for authorized users.</p>
-                <a class="private-portal-button" href="https://kw-controls-portal.teck3618.workers.dev/" target="_blank" rel="noopener noreferrer">Sign In</a>
+                <form class="private-portal-form" action="https://kw-controls-portal.teck3618.workers.dev/portal-login" method="POST">
+                  <label for="portal-access-code">Access code</label>
+                  <input class="private-portal-input" id="portal-access-code" name="access_code" type="password" autocomplete="one-time-code" required />
+                  <div class="private-portal-error" id="private-portal-error" role="alert">Invalid access code. Please try again.</div>
+                  <button class="private-portal-button" type="submit">Sign In</button>
+                </form>
               </div>
             </aside>
             <div class="contact-form-column">
@@ -180,5 +231,11 @@
       <div class="copyright-bar">© 2026 KW Controls. All Rights Reserved.</div>
     </footer>
     <script src="js/script.js"></script>
+    <script>
+      const portalParams = new URLSearchParams(window.location.search);
+      if (portalParams.get("portal_error") === "1") {
+        document.getElementById("private-portal-error")?.classList.add("visible");
+      }
+    </script>
   </body>
 </html>
