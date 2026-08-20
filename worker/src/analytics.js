@@ -77,12 +77,12 @@ export async function getAnalyticsSnapshot(env) {
     }),
     gaRequest(token, propertyId, "runReport", {
       dateRanges: [{ startDate: "30daysAgo", endDate: "today" }],
-      dimensions: [{ name: "city" }, { name: "country" }],
+      dimensions: [{ name: "city" }, { name: "region" }, { name: "country" }],
       metrics: [{ name: "activeUsers" }, { name: "sessions" }],
       orderBys: [{ metric: { metricName: "activeUsers" }, desc: true }], limit: 10,
     }),
     gaRequest(token, propertyId, "runRealtimeReport", {
-      dimensions: [{ name: "city" }, { name: "country" }, { name: "deviceCategory" }],
+      dimensions: [{ name: "city" }, { name: "region" }, { name: "country" }, { name: "deviceCategory" }],
       metrics: [{ name: "activeUsers" }], limit: 20,
     }),
     gaRequest(token, propertyId, "runReport", {
@@ -106,7 +106,7 @@ export async function getAnalyticsSnapshot(env) {
     safeReport(gaRequest(token, propertyId, "runReport", {
       dateRanges: [{ startDate: "30daysAgo", endDate: "today" }],
       dimensions: [
-        { name: "dateHourMinute" }, { name: "city" }, { name: "country" },
+        { name: "dateHourMinute" }, { name: "city" }, { name: "region" }, { name: "country" },
         { name: "deviceCategory" }, { name: "operatingSystem" }, { name: "browser" },
         { name: "landingPagePlusQueryString" },
       ],
@@ -152,14 +152,14 @@ export async function getAnalyticsSnapshot(env) {
     pages: mapRows(pages, ["pageTitle", "pagePath"], ["views", "activeUsers"]),
     devices: deviceRows,
     deviceSummary,
-    locations: mapRows(locations, ["city", "country"], ["activeUsers", "sessions"]),
-    realtime: mapRows(realtime, ["city", "country", "deviceCategory"], ["activeUsers"]),
+    locations: mapRows(locations, ["city", "region", "country"], ["activeUsers", "sessions"]),
+    realtime: mapRows(realtime, ["city", "region", "country", "deviceCategory"], ["activeUsers"]),
     trends: mapRows(trends, ["date"], ["activeUsers", "sessions", "views"]),
     trafficSources: sourceRows.map((row) => ({ ...row, percentage: (row.users / sourceTotal) * 100 })),
     visitorTypes: visitorRows.map((row) => ({ ...row, percentage: (row.users / visitorTotal) * 100 })),
     activityDetail: mapRows(
       activityDetail,
-      ["dateHourMinute", "city", "country", "deviceCategory", "operatingSystem", "browser", "landingPage"],
+      ["dateHourMinute", "city", "region", "country", "deviceCategory", "operatingSystem", "browser", "landingPage"],
       ["activeUsers", "sessions", "views", "averageSessionDuration"],
     ),
   };
