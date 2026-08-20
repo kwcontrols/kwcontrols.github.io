@@ -264,25 +264,6 @@ export async function markGuestLogin(id, env) {
   } catch {}
 }
 
-export async function regenerateManagedGuestCode(id, env) {
-  const store = guestStore(env);
-  if (!store || !id) return null;
-  const raw = await store.get(`${GUEST_KEY_PREFIX}${id}`);
-  if (!raw) return null;
-  let guest;
-  try { guest = JSON.parse(raw); } catch { return null; }
-  if (!guest?.id || !guest?.name) return null;
-
-  const existing = await store.list({ prefix: CODE_KEY_PREFIX });
-  for (const key of existing.keys) {
-    if ((await store.get(key.name)) === id) await store.delete(key.name);
-  }
-
-  const code = randomAccessCode();
-  await store.put(`${CODE_KEY_PREFIX}${await sha256Hex(code)}`, id);
-  return { guest, code };
-}
-
 export async function revokeManagedGuest(id, env) {
   const store = guestStore(env);
   if (!store || !id) return false;
