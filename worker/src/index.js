@@ -110,7 +110,7 @@ export default {
       return redirect(PUBLIC_CONTACT_URL);
     }
 
-    const identity = codeAuthEnabled ? "Authorized user" : accessIdentity;
+    const identity = codeAuthEnabled ? "Admin" : accessIdentity;
 
     if (url.pathname === "/api/analytics") {
       try {
