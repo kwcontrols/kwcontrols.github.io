@@ -1,4 +1,14 @@
 import { getAnalyticsSnapshot } from "./analytics.js";
+import {
+  authenticatePortalCode,
+  clearPortalSessionCookie,
+  createPortalSession,
+  portalAuthConfigured,
+  portalSessionCookie,
+  verifyPortalSession,
+} from "./auth.js";
+
+const PUBLIC_CONTACT_URL = "https://kwcontrols.github.io/contact.html#private-portal";
 
 const escapeHtml = (value = "") => String(value).replace(/[&<>"']/g, (char) => ({
   "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;",
@@ -17,12 +27,12 @@ const shellStyles = `
 `;
 
 function header() {
-  return `<header class="topbar"><div class="nav"><div class="brand-wrap"><div class="mark">KW</div><div class="brand">KW Controls</div><div class="portal-tag">PRIVATE PORTAL</div></div><div class="nav-actions"><a class="link" href="/">Portal home</a><a class="link public" href="https://kwcontrols.github.io/" rel="noopener">Public website</a><a class="link logout" href="/cdn-cgi/access/logout">Sign out</a></div></div></header>`;
+  return `<header class="topbar"><div class="nav"><div class="brand-wrap"><div class="mark">KW</div><div class="brand">KW Controls</div><div class="portal-tag">PRIVATE PORTAL</div></div><div class="nav-actions"><a class="link" href="/">Portal home</a><a class="link public" href="https://kwcontrols.github.io/" rel="noopener">Public website</a><a class="link logout" href="/portal-logout">Sign out</a></div></div></header>`;
 }
 
-function renderPortal(email) {
+function renderPortal(identity) {
   return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow,noarchive"><title>KW Controls Private Portal</title><style>${shellStyles}</style></head><body>${header()}<main>
-    <section class="hero"><div class="hero-card"><div class="eyebrow">Secure workspace</div><h1>KW Controls Private Portal</h1><p class="lead">A protected home for internal analytics, operational references, and administrative tools.</p></div><aside class="identity"><div><div class="identity-label">Signed in as</div><div class="identity-email">${escapeHtml(email)}</div></div><div class="secure">Cloudflare Access session verified</div></aside></section>
+    <section class="hero"><div class="hero-card"><div class="eyebrow">Secure workspace</div><h1>KW Controls Private Portal</h1><p class="lead">A protected home for internal analytics, operational references, and administrative tools.</p></div><aside class="identity"><div><div class="identity-label">Signed in as</div><div class="identity-email">${escapeHtml(identity)}</div></div><div class="secure">Private portal session verified</div></aside></section>
     <div class="section-head"><div><div class="eyebrow">Portal areas</div><h2>Private workspace</h2></div><p>Analytics is now connected to GA4</p></div>
     <section class="grid"><a class="card" href="/analytics"><div class="icon">A</div><h3>Analytics</h3><p>Private website traffic, realtime visitors, engagement, locations, devices, sessions, and top pages.</p><div class="status-row">Open live dashboard →</div></a><article class="card"><div class="icon">O</div><h3>Operations</h3><p>A future home for internal references, service notes, recurring checks, and frequently used operational resources.</p><div class="status-row">Ready for content</div></article><article class="card"><div class="icon">M</div><h3>Administration</h3><p>Protected utilities and configuration references that should not live on the public site.</p><div class="status-row">Access protected</div></article></section>
     <footer class="footer"><span>KW Controls · Private system</span><span>GitHub → Actions → Cloudflare Worker</span></footer>
@@ -33,17 +43,17 @@ function listPanel(title, items, renderItem) {
   return `<section class="panel"><h2>${title}</h2>${items.length ? items.map(renderItem).join("") : '<div class="empty">No data available yet.</div>'}</section>`;
 }
 
-function renderAnalytics(email, data, propertyId, errorMessage = "") {
+function renderAnalytics(identity, data, propertyId, errorMessage = "") {
   const rtTotal = data?.realtime?.reduce((sum, row) => sum + row.activeUsers, 0) || 0;
   const s = data?.summary || { activeUsers: 0, sessions: 0, views: 0, averageSessionDuration: 0 };
   return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow,noarchive"><title>Analytics · KW Controls Private Portal</title><style>${shellStyles}</style></head><body>${header()}<main>
     <a class="back" href="/">← Back to portal</a><div class="eyebrow">Google Analytics 4</div><h1>Website Analytics</h1><p class="lead">Private GA4 reporting for property ${escapeHtml(propertyId || "Not configured")}. Realtime uses GA4's rolling realtime window; processed metrics cover the last 30 days.</p>
     ${errorMessage ? `<div class="error"><strong>Analytics connection needs attention.</strong><br>${escapeHtml(errorMessage)}</div>` : ""}
     <section class="stats"><div class="stat"><div class="stat-label">Realtime active</div><div class="stat-value">${rtTotal}</div></div><div class="stat"><div class="stat-label">Active users · 30d</div><div class="stat-value">${s.activeUsers}</div></div><div class="stat"><div class="stat-label">Sessions · 30d</div><div class="stat-value">${s.sessions}</div></div><div class="stat"><div class="stat-label">Page views · 30d</div><div class="stat-value">${s.views}</div></div></section>
-    <section class="stats"><div class="stat"><div class="stat-label">Avg. session · 30d</div><div class="stat-value">${formatDuration(s.averageSessionDuration)}</div></div><div class="stat"><div class="stat-label">Signed in as</div><div class="row-title" style="margin-top:8px">${escapeHtml(email)}</div></div><div class="stat"><div class="stat-label">Generated</div><div class="row-title" style="margin-top:8px">${data?.generatedAt ? escapeHtml(new Date(data.generatedAt).toLocaleString("en-CA", { timeZone: "America/Vancouver" })) + " PT" : "—"}</div></div><div class="stat"><div class="stat-label">Source</div><div class="row-title" style="margin-top:8px">GA4 Data API</div></div></section>
+    <section class="stats"><div class="stat"><div class="stat-label">Avg. session · 30d</div><div class="stat-value">${formatDuration(s.averageSessionDuration)}</div></div><div class="stat"><div class="stat-label">Signed in as</div><div class="row-title" style="margin-top:8px">${escapeHtml(identity)}</div></div><div class="stat"><div class="stat-label">Generated</div><div class="row-title" style="margin-top:8px">${data?.generatedAt ? escapeHtml(new Date(data.generatedAt).toLocaleString("en-CA", { timeZone: "America/Vancouver" })) + " PT" : "—"}</div></div><div class="stat"><div class="stat-label">Source</div><div class="row-title" style="margin-top:8px">GA4 Data API</div></div></section>
     <div class="two-col">${listPanel("Realtime visitors", data?.realtime || [], (r) => `<div class="row"><div><div class="row-title">${escapeHtml(r.city || "Unknown location")}</div><div class="row-sub">${escapeHtml(r.deviceCategory || "unknown device")}</div></div><div class="row-value">${r.activeUsers} active</div></div>`)}${listPanel("Top pages · 30 days", data?.pages || [], (r) => `<div class="row"><div><div class="row-title">${escapeHtml(r.pagePath || "/")}</div><div class="row-sub">${r.activeUsers} active users</div></div><div class="row-value">${r.views} views</div></div>`)}</div>
     <div class="two-col">${listPanel("Devices · 30 days", data?.devices || [], (r) => `<div class="row"><div><div class="row-title">${escapeHtml(r.deviceCategory)}</div><div class="row-sub">${r.sessions} sessions</div></div><div class="row-value">${r.activeUsers} users</div></div>`)}${listPanel("Locations · 30 days", data?.locations || [], (r) => `<div class="row"><div><div class="row-title">${escapeHtml(r.city || "Unknown")}, ${escapeHtml(r.country || "Unknown")}</div><div class="row-sub">${r.sessions} sessions</div></div><div class="row-value">${r.activeUsers} users</div></div>`)}</div>
-    <footer class="footer"><span>KW Controls · Analytics protected by Cloudflare Access</span><span>Credentials remain server-side in Worker secrets.</span></footer>
+    <footer class="footer"><span>KW Controls · Analytics protected by private portal access</span><span>Credentials remain server-side in Worker secrets.</span></footer>
   </main></body></html>`;
 }
 
@@ -56,12 +66,51 @@ const securityHeaders = {
   "Content-Security-Policy": "default-src 'none'; style-src 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'",
 };
 
+function redirect(location, extraHeaders = {}) {
+  return new Response(null, {
+    status: 302,
+    headers: { ...securityHeaders, Location: location, ...extraHeaders },
+  });
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
-    const email = request.headers.get("Cf-Access-Authenticated-User-Email") || "Authorized user";
+    const accessIdentity = request.headers.get("Cf-Access-Authenticated-User-Email") || "Authorized user";
 
-    if (url.pathname === "/health") return Response.json({ ok: true, service: "kw-controls-portal" }, { headers: securityHeaders });
+    if (url.pathname === "/health") {
+      return Response.json({ ok: true, service: "kw-controls-portal" }, { headers: securityHeaders });
+    }
+
+    if (url.pathname === "/portal-login" && request.method === "POST") {
+      if (!portalAuthConfigured(env)) return redirect("/");
+
+      const form = await request.formData();
+      const code = String(form.get("access_code") || "");
+      if (!(await authenticatePortalCode(code, env))) {
+        return redirect("https://kwcontrols.github.io/contact.html?portal_error=1#private-portal");
+      }
+
+      const session = await createPortalSession(env);
+      if (!session) return new Response("Portal session could not be created.", { status: 500, headers: securityHeaders });
+
+      return redirect("/", {
+        "Set-Cookie": portalSessionCookie(session.token, session.maxAge),
+      });
+    }
+
+    if (url.pathname === "/portal-logout") {
+      return redirect(PUBLIC_CONTACT_URL, {
+        "Set-Cookie": clearPortalSessionCookie(),
+      });
+    }
+
+    const codeAuthEnabled = portalAuthConfigured(env);
+    if (codeAuthEnabled && !(await verifyPortalSession(request, env))) {
+      return redirect(PUBLIC_CONTACT_URL);
+    }
+
+    const identity = codeAuthEnabled ? "Authorized user" : accessIdentity;
 
     if (url.pathname === "/api/analytics") {
       try {
@@ -74,12 +123,12 @@ export default {
     if (url.pathname === "/analytics") {
       try {
         const data = await getAnalyticsSnapshot(env);
-        return new Response(renderAnalytics(email, data, env.GA4_PROPERTY_ID), { headers: { ...securityHeaders, "Content-Type": "text/html; charset=UTF-8" } });
+        return new Response(renderAnalytics(identity, data, env.GA4_PROPERTY_ID), { headers: { ...securityHeaders, "Content-Type": "text/html; charset=UTF-8" } });
       } catch (error) {
-        return new Response(renderAnalytics(email, null, env.GA4_PROPERTY_ID, error.message), { status: 200, headers: { ...securityHeaders, "Content-Type": "text/html; charset=UTF-8" } });
+        return new Response(renderAnalytics(identity, null, env.GA4_PROPERTY_ID, error.message), { status: 200, headers: { ...securityHeaders, "Content-Type": "text/html; charset=UTF-8" } });
       }
     }
 
-    return new Response(renderPortal(email), { headers: { ...securityHeaders, "Content-Type": "text/html; charset=UTF-8" } });
+    return new Response(renderPortal(identity), { headers: { ...securityHeaders, "Content-Type": "text/html; charset=UTF-8" } });
   },
 };
