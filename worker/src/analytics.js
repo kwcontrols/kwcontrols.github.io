@@ -82,7 +82,7 @@ export async function getAnalyticsSnapshot(env) {
       orderBys: [{ metric: { metricName: "activeUsers" }, desc: true }], limit: 10,
     }),
     gaRequest(token, propertyId, "runRealtimeReport", {
-      dimensions: [{ name: "city" }, { name: "region" }, { name: "country" }, { name: "deviceCategory" }],
+      dimensions: [{ name: "city" }, { name: "country" }, { name: "deviceCategory" }],
       metrics: [{ name: "activeUsers" }], limit: 20,
     }),
     gaRequest(token, propertyId, "runReport", {
@@ -137,6 +137,12 @@ export async function getAnalyticsSnapshot(env) {
   const visitorTotal = visitorRows.reduce((sum, row) => sum + row.users, 0) || 1;
   const sourceRows = mapRows(sources, ["source"], ["users"]);
   const sourceTotal = sourceRows.reduce((sum, row) => sum + row.users, 0) || 1;
+  const locationRows = mapRows(locations, ["city", "region", "country"], ["activeUsers", "sessions"]);
+  const regionByCityCountry = new Map(locationRows.map((row) => [`${row.city}\u0000${row.country}`, row.region]));
+  const realtimeRows = mapRows(realtime, ["city", "country", "deviceCategory"], ["activeUsers"]).map((row) => ({
+    ...row,
+    region: regionByCityCountry.get(`${row.city}\u0000${row.country}`) || "",
+  }));
 
   return {
     generatedAt: new Date().toISOString(),
@@ -152,8 +158,8 @@ export async function getAnalyticsSnapshot(env) {
     pages: mapRows(pages, ["pageTitle", "pagePath"], ["views", "activeUsers"]),
     devices: deviceRows,
     deviceSummary,
-    locations: mapRows(locations, ["city", "region", "country"], ["activeUsers", "sessions"]),
-    realtime: mapRows(realtime, ["city", "region", "country", "deviceCategory"], ["activeUsers"]),
+    locations: locationRows,
+    realtime: realtimeRows,
     trends: mapRows(trends, ["date"], ["activeUsers", "sessions", "views"]),
     trafficSources: sourceRows.map((row) => ({ ...row, percentage: (row.users / sourceTotal) * 100 })),
     visitorTypes: visitorRows.map((row) => ({ ...row, percentage: (row.users / visitorTotal) * 100 })),
