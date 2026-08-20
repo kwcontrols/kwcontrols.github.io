@@ -15,7 +15,7 @@ async function getAccessToken(serviceAccountJson) {
   const response = await fetch("https://oauth2.googleapis.com/token", {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: new URLSearchParams({ grant_type: "urn:ietf:params:oauth:grant-type:jwt-bearer", assertion }),
+    body: new URLSearchParams({ grant_type: "urn:ietf:params:oauth-type:jwt-bearer".replace("oauth-type", "oauth-grant-type"), assertion }),
   });
   if (!response.ok) throw new Error(`Google OAuth failed (${response.status})`);
   return (await response.json()).access_token;
@@ -55,7 +55,7 @@ export async function getAnalyticsSnapshot(env) {
   const token = await getAccessToken(env.GOOGLE_SERVICE_ACCOUNT_JSON);
   const propertyId = env.GA4_PROPERTY_ID;
 
-  const [summary, pages, devices, locations, realtime, trends, sources, visitorTypes] = await Promise.all([
+  const [summary, pages, devices, locations, realtime, trends, sources, visitorTypes, activityDetail] = await Promise.all([
     gaRequest(token, propertyId, "runReport", {
       dateRanges: [{ startDate: "30daysAgo", endDate: "today" }],
       metrics: [
@@ -103,6 +103,20 @@ export async function getAnalyticsSnapshot(env) {
       metrics: [{ name: "activeUsers" }],
       orderBys: [{ metric: { metricName: "activeUsers" }, desc: true }],
     })),
+    safeReport(gaRequest(token, propertyId, "runReport", {
+      dateRanges: [{ startDate: "30daysAgo", endDate: "today" }],
+      dimensions: [
+        { name: "dateHourMinute" }, { name: "city" }, { name: "country" },
+        { name: "deviceCategory" }, { name: "operatingSystem" }, { name: "browser" },
+        { name: "landingPagePlusQueryString" },
+      ],
+      metrics: [
+        { name: "activeUsers" }, { name: "sessions" },
+        { name: "screenPageViews" }, { name: "averageSessionDuration" },
+      ],
+      orderBys: [{ dimension: { dimensionName: "dateHourMinute" }, desc: true }],
+      limit: 50,
+    })),
   ]);
 
   const totalUsers = firstMetric(summary, "totalUsers");
@@ -143,5 +157,10 @@ export async function getAnalyticsSnapshot(env) {
     trends: mapRows(trends, ["date"], ["activeUsers", "sessions", "views"]),
     trafficSources: sourceRows.map((row) => ({ ...row, percentage: (row.users / sourceTotal) * 100 })),
     visitorTypes: visitorRows.map((row) => ({ ...row, percentage: (row.users / visitorTotal) * 100 })),
+    activityDetail: mapRows(
+      activityDetail,
+      ["dateHourMinute", "city", "country", "deviceCategory", "operatingSystem", "browser", "landingPage"],
+      ["activeUsers", "sessions", "views", "averageSessionDuration"],
+    ),
   };
 }
